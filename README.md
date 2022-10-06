@@ -1,3 +1,3 @@
 # Coding-Problems
 
-Python Snippets for Coding Problems, mostly from leetcode
+Python Snippets for Coding Problems, problems mostly from leetcode
