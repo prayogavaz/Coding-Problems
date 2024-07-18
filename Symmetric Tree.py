@@ -12,49 +12,22 @@ class Solution:
         if root == None:
             return True
 
-        if root.right == None and root.left == None:
+        return self.checkLeftRight(root.left, root.right)
+
+    def checkLeftRight(self, left, right) -> bool:
+
+        if left == None and right == None:
             return True
 
-        if root.right == None and root.left != None:
+        if left == None or right == None:
             return False
 
-        if root.right != None and root.left == None:
+        if left.val != right.val:
             return False
 
-        if root.right.val != root.left.val:
+        check1 = self.checkLeftRight(left.left, right.right)
+
+        if not check1:
             return False
 
-        leftTree = self.inOrderLeftFirst(root.left)
-        rightTree = self.inOrderRightFirst(root.right)
-
-        return all(x == y for x, y in zip(leftTree, rightTree))
-
-    def inOrderLeftFirst(self, root: Optional[TreeNode]) -> list:
-
-        if root.left == None and root.right == None:
-            return [root.val]
-
-        leftList = ['#']
-        if root.left != None:
-            leftList = self.inOrderLeftFirst(root.left)
-
-        rightList = ['#']
-        if root.right != None:
-            rightList = self.inOrderLeftFirst(root.right)
-
-        return leftList + [root.val] + rightList
-
-    def inOrderRightFirst(self, root: Optional[TreeNode]) -> list:
-
-        if root.left == None and root.right == None:
-            return [root.val]
-
-        rightList = ['#']
-        if root.right != None:
-            rightList = self.inOrderRightFirst(root.right)
-
-        leftList = ['#']
-        if root.left != None:
-            leftList = self.inOrderRightFirst(root.left)
-
-        return rightList + [root.val] + leftList
+        return self.checkLeftRight(left.right, right.left)
